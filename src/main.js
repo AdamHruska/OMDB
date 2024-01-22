@@ -1,4 +1,5 @@
 import './assets/main.css'
+import 'primeflex/primeflex.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -8,7 +9,6 @@ import router from './router'
 
 import PrimeVue from 'primevue/config';
 //theme
-//import 'primevue/resources/themes/saga-blue/theme.css';
 import 'primevue/resources/themes/bootstrap4-dark-blue/theme.css';
 const app = createApp(App)
 

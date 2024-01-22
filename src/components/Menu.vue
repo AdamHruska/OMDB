@@ -5,9 +5,9 @@ import { RouterLink } from 'vue-router'
 <template>
     <nav>
         <div class="link-container">
-            <RouterLink to="/">Trending</RouterLink>
-            <RouterLink to="/about">Top Rated</RouterLink>
-            <RouterLink to="/about">Upcoming</RouterLink>
+            <RouterLink to="/trending">Trending</RouterLink>
+            <RouterLink to="/topRated">Top Rated</RouterLink>
+            <RouterLink to="/upcoming">Upcoming</RouterLink>
         </div>
      </nav>
 </template>
