@@ -2,6 +2,7 @@
 import InputText from 'primevue/inputtext';
 import { ref } from 'vue';
 import MovieCard from '../components/MovieCard.vue';
+import Paginator from 'primevue/paginator';
 const searchInput = ref('');
 </script>
 
@@ -39,6 +40,11 @@ const searchInput = ref('');
         <div class="col-3">
           <MovieCard />
         </div>
+
+        <div class="paginator">
+          <Paginator :rows="4" :totalRecords="120" template="PrevPageLink CurrentPageReport NextPageLink"
+                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="border-round-md"/>
+        </div>
       </div>
 
   </div>
@@ -65,7 +71,15 @@ const searchInput = ref('');
   /* Card Container */
   .card-container {
    max-width: 65%;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .paginator {
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
 </style>
