@@ -20,4 +20,7 @@ import Card from 'primevue/card';
         width: 100%;
         height: auto;
     }
+    * {
+        cursor: pointer;
+    }
 </style>

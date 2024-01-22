@@ -12,7 +12,10 @@ import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/bootstrap4-dark-blue/theme.css';
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia();
+
+app.use(pinia)
 app.use(router)
 app.use(PrimeVue);
+
 app.mount('#app')

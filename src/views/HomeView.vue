@@ -1,9 +1,33 @@
 <script setup>
 import InputText from 'primevue/inputtext';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import MovieCard from '../components/MovieCard.vue';
 import Paginator from 'primevue/paginator';
 const searchInput = ref('');
+import axios from 'axios';
+/*
+const options = {
+  method: 'GET',
+  headers: {
+    accept: 'application/json',
+    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjZjBkMzUxNTAwYjNlZWRkYTNkNGI1NDM0OTdkMGIzMCIsInN1YiI6IjY1YWViNDRlNTQ0YzQxMDBlZGMzM2Y0OSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.3rPgg_UV--cwT3jnMv-jaEKcVVzAihp765mnfmG3PD8'
+  }
+};
+
+onMounted(() => {
+  axios.get('https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1', options)
+    .then(response => console.log(response))
+});
+*//*
+const movies = ref([]);
+import {useApiStore} from '../stores/apiStore';
+
+const apiStore = useApiStore();
+
+onMounted(() => {
+  movies.value =  apiStore.getTopRatedMovies();
+  console.log(movies.value);
+});*/
 </script>
 
 <template>

@@ -1,33 +1,9 @@
 <script setup>
 import InputText from 'primevue/inputtext';
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import MovieCard from '../components/MovieCard.vue';
 import Paginator from 'primevue/paginator';
 const searchInput = ref('');
-import { useApiCallStore} from '../stores/apiCall';
-const apiCallStore = useApiCallStore();
-
-
-
-onMounted(async () => {
-  apiCallStore.topRatedMovies = await apiCallStore.getTopRatedMovies();
-  console.log(apiCallStore.topRatedMovies);
-});
-
-
-
-/*
-const movies = ref([]);
-import {useApiStore} from '../stores/apiStore';
-
-const apiStore = useApiStore();
-
-onMounted(() => {
-  movies.value =  apiStore.getTopRatedMovies();
-  console.log(movies.value);
-});*/
-
-
 </script>
 
 <template>
@@ -35,7 +11,7 @@ onMounted(() => {
       <InputText v-model="searchInput" placeholder="Search..." class="search-input"/>
     </div>
 
-      <h2>Top Rated Movies</h2>
+      <h2>Upcoming Movies</h2>
     
     <div class="card-container">
 

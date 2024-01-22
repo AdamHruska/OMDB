@@ -6,7 +6,7 @@ import { RouterLink } from 'vue-router'
     <nav>
         <div class="link-container">
             <RouterLink to="/trending">Trending</RouterLink>
-            <RouterLink to="/topRated">Top Rated</RouterLink>
+            <RouterLink to="/top-rated">Top Rated</RouterLink>
             <RouterLink to="/upcoming">Upcoming</RouterLink>
         </div>
      </nav>
