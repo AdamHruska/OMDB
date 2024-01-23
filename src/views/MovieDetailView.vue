@@ -10,27 +10,62 @@ const route = useRoute();
 
 onMounted(async () => {
     apiCallStore.movieDetails = await apiCallStore.getMovieDetails(route.params.id);
-    movie.value = apiCallStore.movieDetails;
-    console.log(movie);    
+    movie.value = apiCallStore.movieDetails;   
 })
 
-const addFavorite = () => {
-    apiCallStore.favorites.push(route.params.id);
-    
+//addFavoreriteMovie
+const addFavorite = (id) => {
+    apiCallStore.favoritesID.push(route.params.id);
+    localStorage.setItem('favoritesID', JSON.stringify(apiCallStore.favoritesID));
+    console.log(apiCallStore.favoritesID);
+    showAdded();
 }
 
-</script>
-movie.poster_path
-<template>
+const deleteFavorite = () => {
+    const index = apiCallStore.favoritesID.indexOf(route.params.id);
+    if (index > -1) {
+        apiCallStore.favoritesID.splice(index, 1);
+    }
+    localStorage.setItem('favoritesID', JSON.stringify(apiCallStore.favoritesID));
+    console.log(apiCallStore.favoritesID);
+    showDeleted();
+}
 
+/* Zobrazovanie add delete buttonov */
+const isFav = () => {
+    if (apiCallStore.favoritesID.includes(route.params.id)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/* TOAST */
+import Toast from 'primevue/toast';
+import { useToast } from 'primevue/usetoast';
+
+const toast = useToast();
+const showAdded = () => {
+    toast.add({ severity: 'success', summary: 'Success Message', detail: 'Movie added', life: 3000 });
+};
+
+const showDeleted = () => {
+    toast.add({ severity: 'success', summary: 'Success Message', detail: 'Movie deleted', life: 3000 });
+};
+
+</script>
+
+<template>
     <div class="movie-detail-container">
+        <Toast />
             <img :src="'https://image.tmdb.org/t/p/w500/' + movie.poster_path" alt="movie poster">
         <div class="movie-detail-info">
             <h2>{{ movie.title }}</h2>
             <p class="overview">{{ movie.overview }}</p>
             <p>Release Date:  {{ movie.release_date }}</p>
             <p>Rating: {{ movie.vote_average }} / 10</p>
-            <div class="addFavorite" @click="addFavorite">Add to Favorites</div>
+            <div v-if="!isFav()" class="addFavorite" @click="addFavorite()">Add to Favorites</div>
+            <div v-else class="addFavorite" @click="deleteFavorite">Delete from Favorites</div>
         </div>
     </div>
     
@@ -38,6 +73,7 @@ movie.poster_path
 
 <style scoped>
 .movie-detail-container {  
+    margin-bottom: 140px !important;
     background-color: charcoal;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);

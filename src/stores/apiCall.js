@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import api from "../axios";
-import { watch } from "vue";
 
 export const useApiCallStore = defineStore("apiCall", {
     state: () => ({
@@ -12,7 +11,8 @@ export const useApiCallStore = defineStore("apiCall", {
         pageTrending: 1,
         pageUpcoming: 1,
         search: '',
-        favorites: [],
+        favoritesID: JSON.parse(localStorage.getItem('favoritesID')) ?? [], // local storage uklada len stringy a nie pole, preto JSON.parse
+        favoriteMovies: [],
     }),
     actions: {
         async getTopRatedMovies() {
@@ -35,9 +35,13 @@ export const useApiCallStore = defineStore("apiCall", {
             const response = await api.get(`/search/movie?language=en-US&query=${this.search}`);
             return response.data.results;
         },
+        async getFavoriteMovies() {
+            this.favoriteMovies = [];
+            await Promise.all(this.favoritesID.map(async (id) => {
+                const response = await api.get(`/movie/${id}?language=en-US`);
+                this.favoriteMovies.push(response.data);
+            }));
+            return this.favoriteMovies;
+        },
     },
 }); 
-
-/* watch() => useApiCallStore.pageTopRated, () => {
-            useApiCallStore.getTopRatedMovies();
-        } */

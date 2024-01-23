@@ -6,6 +6,15 @@ import Paginator from 'primevue/paginator';
 const searchInput = ref('');
 import axios from 'axios';
 
+import { useApiCallStore} from '../stores/apiCall';
+const apiCallStore = useApiCallStore();
+const favoriteMovies = ref([]);
+
+onMounted(async () => {
+  apiCallStore.favoriteMovies = await apiCallStore.getFavoriteMovies();
+  favoriteMovies.value = apiCallStore.favoriteMovies
+  console.log(favoriteMovies.value);
+});
 
 </script>
 
@@ -19,15 +28,11 @@ import axios from 'axios';
     <div class="card-container">
 
       <div class="grid">
-       <!--
-         <div class="col-3">
-          <MovieCard />
-        </div>
-       -->
-
-        <div class="paginator">
-          <Paginator :rows="4" :totalRecords="120" template="PrevPageLink CurrentPageReport NextPageLink"
-                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="border-round-md"/>
+         <div class="col-3" v-for="favoriteMovie in favoriteMovies">
+          <MovieCard  :imgPath="favoriteMovie.poster_path"
+                     :title="favoriteMovie.title"
+                     :vote="favoriteMovie.vote_average" 
+                     :id="favoriteMovie.id"/>
         </div>
       </div>
 
