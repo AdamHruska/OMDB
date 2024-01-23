@@ -28,7 +28,7 @@ onMounted(async () => {
     <div class="card-container">
 
       <div class="grid">
-         <div class="col-3" v-for="favoriteMovie in favoriteMovies">
+         <div class="col-12 md:col-6 lg:col-3" v-for="favoriteMovie in favoriteMovies">
           <MovieCard  :imgPath="favoriteMovie.poster_path"
                      :title="favoriteMovie.title"
                      :vote="favoriteMovie.vote_average" 

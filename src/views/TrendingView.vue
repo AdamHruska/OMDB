@@ -61,7 +61,7 @@ const searchCall = async () => {
     <div class="card-container">
 
       <div class="grid">
-        <div class="col-3" v-for="trend in trendingMovies">
+        <div class="col-12 md:col-6 lg:col-3" v-for="trend in trendingMovies">
           <MovieCard  :imgPath="trend.poster_path"
                      :title="trend.title"
                      :vote="trend.vote_average" 
