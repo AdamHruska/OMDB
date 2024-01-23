@@ -1,17 +1,18 @@
 <script setup>
+import { defineProps } from 'vue';
 import Card from 'primevue/card';
+
+const {imgPath, title} = defineProps(['imgPath', 'title'])
 </script>
 
 <template>
-    <Card style="width: 17em; " class="border-round-md surface-0 mt-3">
+    <Card style="width: 17em; height: 580px;" class="border-round-md surface-0 mt-3">
     <template #header>
-        <img alt="user header" src="https://cdn.sktorrent.eu/obrazky/650091379fa2b6e08ff441cbe129196d2cb8798f.jpg" class="border-round-top-md"/>
+        <img alt="user header" :src="'https://image.tmdb.org/t/p/w500/' + imgPath" class="border-round-top-md"/>
     </template>
-    <template #title> Advanced Card </template>
+    <template #title><span>{{ title }}</span></template>
     <template #subtitle>8.1/10</template>
-    <template #footer>
-        128 likes
-    </template>
+    <template #footer>128 likes</template>
 </Card>
 </template>
 
@@ -22,5 +23,11 @@ import Card from 'primevue/card';
     }
     * {
         cursor: pointer;
+    }
+    span {
+        font-size: 1.2rem;
+    }
+    #title {
+        padding-top: 0;
     }
 </style>

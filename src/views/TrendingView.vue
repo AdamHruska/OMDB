@@ -1,9 +1,44 @@
 <script setup>
 import InputText from 'primevue/inputtext';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import MovieCard from '../components/MovieCard.vue';
 import Paginator from 'primevue/paginator';
 const searchInput = ref('');
+
+
+import { useApiCallStore} from '../stores/apiCall';
+const apiCallStore = useApiCallStore();
+const trendingMovies = ref([]);
+
+
+onMounted(async () => {
+  apiCallStore.trendingMovies = await apiCallStore.getTrendingMovies();
+  trendingMovies.value = apiCallStore.trendingMovies
+  console.log(trendingMovies);
+});
+
+const pagePlusOne = async () => {
+  apiCallStore.pageTrending += 1;
+  apiCallStore.trendingMovies = await apiCallStore.getTrendingMovies();
+  trendingMovies.value = apiCallStore.trendingMovies
+  window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: "smooth",
+});
+}	
+
+const pageMinusOne = async () => {
+  apiCallStore.pageTrending -= 1;
+  apiCallStore.trendingMovies = await apiCallStore.getTrendingMovies();
+  trendingMovies.value = apiCallStore.trendingMovies
+  window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: "smooth",
+});
+}
+
 </script>
 
 <template>
@@ -16,35 +51,19 @@ const searchInput = ref('');
     <div class="card-container">
 
       <div class="grid">
-        <div class="col-3">
-          <MovieCard />
+        <div class="col-3" v-for="trend in trendingMovies">
+          <MovieCard  :imgPath="trend.poster_path"
+                     :title="trend.title" />
         </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
+        
 
-        <div class="paginator">
-          <Paginator :rows="4" :totalRecords="120" template="PrevPageLink CurrentPageReport NextPageLink"
-                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="border-round-md"/>
+        
+          <div class="paginator">
+          <button @click="pageMinusOne" class="pageMinusOne">-</button>
+          <h3>{{ apiCallStore.pageTrending }}</h3>
+          <button @click="pagePlusOne" class="pagePlusOne">+</button>
         </div>
+        
       </div>
 
   </div>
@@ -77,9 +96,38 @@ const searchInput = ref('');
   }
 
   .paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
   }
   
+.pageMinusOne{
+  margin-right: 10px;
+  background-color: #950740;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.pagePlusOne{
+  margin-left: 10px;
+  background-color: #950740;
+  border-radius: 50%;
+  border: none;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.paginator h3{
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #f2f2f2;
+}
+
 </style>

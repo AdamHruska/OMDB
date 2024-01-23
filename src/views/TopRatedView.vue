@@ -4,29 +4,41 @@ import { ref, onMounted } from 'vue';
 import MovieCard from '../components/MovieCard.vue';
 import Paginator from 'primevue/paginator';
 const searchInput = ref('');
-import { useApiCallStore} from '../stores/apiCall';
-const apiCallStore = useApiCallStore();
 
+
+import { useApiCallStore} from '../stores/apiCall';
+
+const apiCallStore = useApiCallStore();
+const topRatedMovies = ref([]);
 
 
 onMounted(async () => {
   apiCallStore.topRatedMovies = await apiCallStore.getTopRatedMovies();
-  console.log(apiCallStore.topRatedMovies);
+  topRatedMovies.value = apiCallStore.topRatedMovies
 });
 
 
+const pagePlusOne = async () => {
+  apiCallStore.pageTopRated += 1;
+  apiCallStore.topRatedMovies = await apiCallStore.getTopRatedMovies();
+  topRatedMovies.value = apiCallStore.topRatedMovies
+  window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: "smooth",
+});
+}
 
-/*
-const movies = ref([]);
-import {useApiStore} from '../stores/apiStore';
-
-const apiStore = useApiStore();
-
-onMounted(() => {
-  movies.value =  apiStore.getTopRatedMovies();
-  console.log(movies.value);
-});*/
-
+const pageMinusOne = async () => {
+  apiCallStore.pageTopRated -= 1;
+  apiCallStore.topRatedMovies = await apiCallStore.getTopRatedMovies();
+  topRatedMovies.value = apiCallStore.topRatedMovies
+  window.scrollTo({
+  top: 0,
+  left: 0,
+  behavior: "smooth",
+});
+}
 
 </script>
 
@@ -40,34 +52,15 @@ onMounted(() => {
     <div class="card-container">
 
       <div class="grid">
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
+        <div class="col-3" v-for="movie in topRatedMovies">
+          <MovieCard  :imgPath="movie.poster_path"
+                      :title="movie.title"/>
         </div>
 
         <div class="paginator">
-          <Paginator :rows="4" :totalRecords="120" template="PrevPageLink CurrentPageReport NextPageLink"
-                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords}" class="border-round-md"/>
+          <button @click="pageMinusOne" class="pageMinusOne">-</button>
+          <h3>{{ apiCallStore.pageTopRated }}</h3>
+          <button @click="pagePlusOne" class="pagePlusOne">+</button>
         </div>
       </div>
 
@@ -101,9 +94,38 @@ onMounted(() => {
   }
 
   .paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
   }
   
+.pageMinusOne{
+  margin-right: 10px;
+  background-color: #950740;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.pagePlusOne{
+  margin-left: 10px;
+  background-color: #950740;
+  border-radius: 50%;
+  border: none;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+}
+
+.paginator h3{
+  margin-left: 10px;
+  margin-right: 10px;
+  color: #f2f2f2;
+}
+
 </style>
