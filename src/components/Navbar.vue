@@ -55,4 +55,15 @@ nav a:hover {
     padding: 8px;
     border-radius: 8px;
 }
+
+@media (max-width: 1250px) {
+  .link-container {
+    margin-left: 10px;
+  }
+
+    .title {
+        margin-right: 10px;
+    }
+}
+
 </style>

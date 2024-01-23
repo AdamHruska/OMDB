@@ -126,4 +126,22 @@ img {
     padding: 8px;
     border-radius: 8px;
 }
+
+@media (max-width: 1250px) {
+  .movie-detail-container{
+    flex-direction: column;
+    width: 85%;
+    height: 800px;
+  }
+  img {
+    width: 100%;
+    height: 60%;
+    border-radius: 10px 10px 0 0;
+    margin-right: 0px;
+  }
+  .movie-detail-info {
+    margin-top: 0px;
+    margin-right: 0px;
+  }
+}
 </style>
