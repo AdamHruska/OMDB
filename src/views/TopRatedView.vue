@@ -40,11 +40,20 @@ const pageMinusOne = async () => {
 });
 }
 
+
+/* SEARCH */
+const searchCall = async () => {
+  apiCallStore.search = searchInput.value;
+  apiCallStore.searchMovies = await apiCallStore.getSearchMovies(searchInput.value);
+  topRatedMovies.value = apiCallStore.searchMovies;
+  console.log("search");
+}
+
 </script>
 
 <template>
     <div class="search-container">
-      <InputText v-model="searchInput" placeholder="Search..." class="search-input"/>
+      <InputText v-model="searchInput" v-on:keyup.enter="searchCall" placeholder="Search..." class="search-input"/>
     </div>
 
       <h2>Top Rated Movies</h2>
