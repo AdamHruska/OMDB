@@ -14,7 +14,7 @@ onMounted(async () => {
   upcomingMovies.value = apiCallStore.upcomingMovies
 });
 
-
+/* PAGINATION */
 const pagePlusOne = async () => {
   apiCallStore.pageUpcoming += 1;
   apiCallStore.upcomingMovies = await apiCallStore.getUpcomingMovies();
@@ -38,11 +38,20 @@ const pageMinusOne = async () => {
 }
 
 
+/* SEARCH */
+const searchCall = async () => {
+  apiCallStore.search = searchInput.value;
+  apiCallStore.searchMovies = await apiCallStore.getSearchMovies(searchInput.value);
+  upcomingMovies.value = apiCallStore.searchMovies;
+  console.log("search");
+}
+
+
 </script>
 
 <template>
     <div class="search-container">
-      <InputText v-model="searchInput" placeholder="Search..." class="search-input"/>
+      <InputText v-model="searchInput" v-on:keyup.enter="searchCall" placeholder="Search..." class="search-input"/>
     </div>
 
       <h2>Upcoming Movies</h2>
@@ -52,7 +61,9 @@ const pageMinusOne = async () => {
       <div class="grid">
         <div class="col-3" v-for="upcomingMovie in upcomingMovies">
           <MovieCard  :imgPath="upcomingMovie.poster_path"
-                      :title="upcomingMovie.title" />
+                      :title="upcomingMovie.title" 
+                      :vote="upcomingMovie.vote_average"
+                      :id="upcomingMovie.id"/>
         </div>
 
         <div class="paginator">

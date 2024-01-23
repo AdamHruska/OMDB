@@ -15,6 +15,7 @@ const topRatedMovies = ref([]);
 onMounted(async () => {
   apiCallStore.topRatedMovies = await apiCallStore.getTopRatedMovies();
   topRatedMovies.value = apiCallStore.topRatedMovies
+  console.log(topRatedMovies.value);
 });
 
 
@@ -63,7 +64,9 @@ const searchCall = async () => {
       <div class="grid">
         <div class="col-3" v-for="movie in topRatedMovies">
           <MovieCard  :imgPath="movie.poster_path"
-                      :title="movie.title"/>
+                      :title="movie.title"
+                      :vote="movie.vote_average"
+                      :id="movie.id"/>
         </div>
 
         <div class="paginator">

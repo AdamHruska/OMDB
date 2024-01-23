@@ -19,30 +19,11 @@ import axios from 'axios';
     <div class="card-container">
 
       <div class="grid">
-        <div class="col-3">
+       <!--
+         <div class="col-3">
           <MovieCard />
         </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
-        <div class="col-3">
-          <MovieCard />
-        </div>
+       -->
 
         <div class="paginator">
           <Paginator :rows="4" :totalRecords="120" template="PrevPageLink CurrentPageReport NextPageLink"

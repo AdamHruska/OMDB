@@ -4,6 +4,7 @@ import AboutView from '../views/AboutView.vue'
 import TopRatedView from '../views/TopRatedView.vue'
 import TrendingView from '../views/TrendingView.vue'
 import UpcomingView from '../views/UpcomingView.vue'
+import MovieDetailView from '../views/MovieDetailView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/upcoming',
       name: 'upcoming',
       component: UpcomingView
+    },
+    {
+      path: '/movie/:id',
+      name: 'movieDetail',
+      component: MovieDetailView
     }
   ]
 })

@@ -17,6 +17,7 @@ onMounted(async () => {
   console.log(trendingMovies);
 });
 
+/* PAGINATION */
 const pagePlusOne = async () => {
   apiCallStore.pageTrending += 1;
   apiCallStore.trendingMovies = await apiCallStore.getTrendingMovies();
@@ -39,11 +40,20 @@ const pageMinusOne = async () => {
 });
 }
 
+
+/* SEARCH */
+const searchCall = async () => {
+  apiCallStore.search = searchInput.value;
+  apiCallStore.searchMovies = await apiCallStore.getSearchMovies(searchInput.value);
+  trendingMovies.value = apiCallStore.searchMovies;
+  console.log("search");
+}
+
 </script>
 
 <template>
     <div class="search-container">
-      <InputText v-model="searchInput" placeholder="Search..." class="search-input"/>
+      <InputText v-model="searchInput" v-on:keyup.enter="searchCall" placeholder="Search..." class="search-input"/>
     </div>
 
       <h2>Trending Movies</h2>
@@ -53,7 +63,9 @@ const pageMinusOne = async () => {
       <div class="grid">
         <div class="col-3" v-for="trend in trendingMovies">
           <MovieCard  :imgPath="trend.poster_path"
-                     :title="trend.title" />
+                     :title="trend.title"
+                     :vote="trend.vote_average" 
+                     :id="trend.id"/>
         </div>
         
 

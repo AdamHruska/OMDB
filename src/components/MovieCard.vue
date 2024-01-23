@@ -1,18 +1,25 @@
 <script setup>
 import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
 import Card from 'primevue/card';
 
-const {imgPath, title} = defineProps(['imgPath', 'title'])
+const {imgPath, title, vote, id} = defineProps(['imgPath', 'title', 'vote', 'id'])
+
+const router = useRouter();
+
+const routeChange = () => {
+    router.push({path: `/movie/${id}`})
+}
+
 </script>
 
 <template>
-    <Card style="width: 17em; height: 580px;" class="border-round-md surface-0 mt-3">
+    <Card style="width: 17em; height: 580px;" class="border-round-md surface-0 mt-3" @click="routeChange">
     <template #header>
         <img alt="user header" :src="'https://image.tmdb.org/t/p/w500/' + imgPath" class="border-round-top-md"/>
     </template>
     <template #title><span>{{ title }}</span></template>
-    <template #subtitle>8.1/10</template>
-    <template #footer>128 likes</template>
+    <template #subtitle>{{ vote.toFixed(2) }}/10</template>
 </Card>
 </template>
 
