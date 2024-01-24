@@ -41,9 +41,8 @@ const pageMinusOne = async () => {
 /* SEARCH */
 const searchCall = async () => {
   apiCallStore.search = searchInput.value;
-  apiCallStore.searchMovies = await apiCallStore.getSearchMovies(searchInput.value);
+  apiCallStore.searchMovies = await apiCallStore.getSearchMovies();
   upcomingMovies.value = apiCallStore.searchMovies;
-  console.log("search");
 }
 
 
@@ -51,7 +50,7 @@ const searchCall = async () => {
 
 <template>
     <div class="search-container">
-      <InputText v-model="searchInput" v-on:keyup.enter="searchCall" placeholder="Search..." class="search-input"/>
+      <InputText v-model="searchInput" @keyup.enter="searchCall" placeholder="Search..." class="search-input"/>
     </div>
 
       <h2>Upcoming Movies</h2>

@@ -16,11 +16,18 @@ onMounted(async () => {
   console.log(favoriteMovies.value);
 });
 
+/* SEARCH */
+const searchCall = async () => {
+  apiCallStore.search = searchInput.value;
+  apiCallStore.searchMovies = await apiCallStore.getSearchMovies();
+  favoriteMovies.value = apiCallStore.searchMovies;
+}
+
 </script>
 
 <template>
     <div class="search-container">
-      <InputText v-model="searchInput" placeholder="Search..." class="search-input"/>
+      <InputText v-model="searchInput" @keyup.enter="searchCall" placeholder="Search..." class="search-input"/>
     </div>
 
       <h2>Your Favorite Movies</h2>
