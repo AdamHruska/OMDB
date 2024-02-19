@@ -8,7 +8,7 @@ import axios from "axios";
 
 import { useApiCallStore } from "../stores/apiCall";
 const apiCallStore = useApiCallStore();
-//const favoriteMovies = ref([]);
+////const favoriteMovies = ref([]);
 const trendingMovies = ref([]);
 
 onMounted(async () => {
