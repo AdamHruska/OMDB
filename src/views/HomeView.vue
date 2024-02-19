@@ -8,12 +8,10 @@ import axios from "axios";
 
 import { useApiCallStore } from "../stores/apiCall";
 const apiCallStore = useApiCallStore();
-////const favoriteMovies = ref([]);
-const trendingMovies = ref([]);
+const favoriteMovies = ref([]);
 
 onMounted(async () => {
-	// apiCallStore.favoriteMovies = await apiCallStore.getFavoriteMovies();
-	apiCallStore.trendingMovies = await apiCallStore.getTrendingMovies();
+	apiCallStore.favoriteMovies = await apiCallStore.getFavoriteMovies();
 	trendingMovies.value = apiCallStore.trendingMovies;
 	console.log(favoriteMovies.value);
 });
